@@ -1,0 +1,107 @@
+{
+    "add_task": [
+        "add a task",
+        "create a new task",
+        "put this in my todo list",
+        "remind me to",
+        "add something to my tasks",
+        "schedule a task",
+        "create a reminder",
+        "I need to do something",
+        "make a new todo",
+
+        "task garnu xa",
+        "kaam garnu xa",
+        "yo kaam add gara",
+        "samjha malai",
+        "yo yaad gara",
+        "yo task rakha",
+        "yo todo ma haal",
+        "kaam thap gara",
+        "reminder set gara",
+        "yo pani list ma rakha"
+    ],
+
+    "delete_task": [
+        "delete a task",
+        "remove a task",
+        "clear this task",
+        "mark task as done",
+        "cancel this task",
+        "erase this task",
+        "complete this task",
+        "take this off my list",
+
+        "yo task delete gara",
+        "delete garde eslai",
+        "yo kaam hata",
+        "yo list bata hata",
+        "yo task sakiyo",
+        "yo kaam sakyo",
+        "yo hataideu",
+        "task remove gara",
+        "yo reminder cancel gara"
+    ],
+    "list_tasks":[
+        "show my tasks",
+        "what are my todos",
+        "list all tasks",
+        "display my task list",
+        "show my reminders",
+        "what do I need to do",
+        "view tasks",
+        "see my tasks",
+
+        "mero task dekha",
+        "mero list dekha",
+        "k k kaam xa",
+        "maile k garnu xa",
+        "todo dekha",
+        "reminder dekha",
+        "mero kaam hera",
+        "list khola"
+    ],
+    "write_blog":[
+        "write a blog",
+        "create a blog post",
+        "draft an article",
+        "generate a blog",
+        "publish a blog",
+        "compose an article",
+
+        "blog lekha",
+        "article bana",
+        "post lekha",
+        "yo topic ma blog lekha",
+        "content bana",
+        "lekha suru gara"
+    ],
+    "upload_photo":[
+        "upload a photo",
+        "add an image",
+        "store a picture",
+        "save this image",
+        "upload a picture",
+        "add photo to gallery",
+
+        "photo haal",
+        "photo upload gara",
+        "image rakha",
+        "yo photo save gara",
+        "gallery ma haal",
+        "picture thap gara"
+    ],
+    "delete_photo":[
+        "delete a photo",
+        "remove a picture",
+        "erase an image",
+        "delete this image",
+        "remove photo from gallery",
+
+        "photo delete gara",
+        "yo photo hata",
+        "image hataideu",
+        "gallery bata hata",
+        "yo picture delete gara"
+    ]    
+}
