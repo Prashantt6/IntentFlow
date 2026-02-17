@@ -7,7 +7,7 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 
 def get_intent_score(input_emb, intent_emb):
     similarties = cosine_similarity(input_emb, intent_emb)
-    return similarties.max()
+    return similarties.mean()
 
 def analyze_Intent(input: str)-> str:
     # Opening the json file of intents

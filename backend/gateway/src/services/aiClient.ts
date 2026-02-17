@@ -9,6 +9,7 @@ const getIntent = async(input: string) =>{
 
     const intent = response.data.intent
 
+    
     // console.log(intent)
     return intent
 
