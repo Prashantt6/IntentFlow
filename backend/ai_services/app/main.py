@@ -3,12 +3,12 @@ from pydantic import BaseModel
 from typing import Optional
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.service import analyze_intent
+from app.service.analyze_intent import analyze_Intent
 app = FastAPI()
 
 class TextRequest(BaseModel):
     text: str
-    user_id: Optional[int]= None
+    
 
 app.add_middleware(
     CORSMiddleware,
@@ -18,7 +18,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post('/find_intent')
-def analyze_intent(input: TextRequest):
-    intent = analyze_intent(input)
-    return{intent}
+@app.post('/get_intent')
+async def analyze_intent(input: TextRequest):
+    intent = analyze_Intent(input.text)
+    return{"intent":intent}
+@app.get('/')
+def health():
+    return{'status': "running"}
