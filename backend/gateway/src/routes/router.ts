@@ -1,5 +1,12 @@
 import { Router } from "express";
+import req_extractor from "../middlewares/req_extractor";
+import getIntentController from "../controller/agent.controller";
 
 const router = Router()
 
-router.get('/.reqAI')
+router.get("/", (req,res)=>{
+    res.send("Router working")
+})
+router.get('/intents',  getIntentController)
+
+export default router

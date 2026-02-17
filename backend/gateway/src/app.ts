@@ -1,9 +1,12 @@
 import express from 'express'
-
+import apiRouter from "./routes/router"
 const app = express()
+
+app.use(express.json());
 
 const PORT = 8000
 
+app.use('/api',apiRouter)
 app.get("/",(req,res)=>{
     res.send("Server is running")
 })
