@@ -57,5 +57,5 @@ def analyze_intent(input: str)-> str:
     print(closest_intent)
     return closest_intent
 
-input ="yo photo hata"
-analyze_intent(input)
+# input ="yo photo hata"
+# analyze_intent(input)
