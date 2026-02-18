@@ -4,15 +4,18 @@ import { Request, Response } from "express";
 import todoService from "../services/todoClient";
 
 
-const getIntentController = async (req: Request, res: Response)=>{
+export const getIntentController = async (req: Request, res: Response)=>{
     const {input} = req.body
     const intent =await getIntent(input)
-    const header = req.headers.authorization
-    // console.log(header)
+    const token = req.headers.authorization?.replace("Bearer", "")
+    const supabase = (req as any).supabase
+    const user = (req as any).user
+    console.log(user.id)
+    
 
     // console.log(`This api was hit by ${req.user?.username}`)
     if(intent === 'add_task' || intent==='delete_task' || intent==='list_tasks'){
-        todoService(input, intent,header)
+        todoService(input, intent,token)
     }
     else if(intent === 'write_blog' ){
         
@@ -23,4 +26,5 @@ const getIntentController = async (req: Request, res: Response)=>{
     res.json(`API called determining intent: ${intent}`)
 
 }
-export default getIntentController
+
+

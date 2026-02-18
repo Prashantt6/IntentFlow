@@ -1,46 +1,34 @@
-    import jwt from 'jsonwebtoken'
+    import { userInfo } from 'node:os'
+import { createSupabaseClient } from '../config/supabase'
     import { Request, Response, NextFunction } from 'express'
 
-    interface AuthRequest extends Request {
-        user?: any
+    
+    export const authMiddleware = async (req:Request, res: Response, next: NextFunction)=>{
+       const token = req.headers.authorization?.replace("Bearer ", "").trim()
+
+       console.log(token)
+       if(!token){
+        return res.status(401)
+            .json({
+                message: "Unauthorized"
+            })
+       }
+       const supabase = createSupabaseClient(token)
+
+       const {data, error} = await supabase.auth.getUser()
+
+       if(error || !data.user){
+        console.error(error)
+            return res.status(401)
+                .json({
+                    message: "Invalid token "
+                })
+       }
+       (req as any).supabase = supabase;
+       (req as any).user = data.user;
+
+       next()
+        
     }
 
-    export const ensureAuthentication = (req:AuthRequest, res: Response, next: NextFunction)=>{
-        const auth = req.headers.authorization
-        if(!auth?.startsWith("Bearer ")){
-            return res.status(403)
-                .json({
-                    message: "NO token recieved"
-                })
-        }
-        // console.log("Authorization header:", auth)
-        if(!auth?.startsWith("Bearer ")){
-            return res.status(403)
-                .json({
-                    message: "Unsupported token format"
-                })
-        }
-        const token = auth.split(" ")[1]
-        // console.log("Extracted token:", token)
-        try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET as string)as JwtPayload
-            
-            req.user = decoded
-            next()
-        }
-        catch(err){
-            console.log(err)
-            return res.status(400)
-                .json({
-                    message: "Invalid jwt token"
-                })
-
-        }
-    }
-
-    export interface JwtPayload {
-    id: string
-    username: string
-    iat?: number
-    exp?: number
-    }
+ 

@@ -1,12 +1,8 @@
 import { Router } from "express";
 import { Request, Response } from "express";
-import { ensureAuthentication } from "../middlewares/auth";
+import { authMiddleware} from "../middlewares/auth";
+import { addTaskController } from "../controllers/todoController";
 const router = Router()
-router.post('/add_task',ensureAuthentication,(req:Request,res:Response)=>{
-    const {entity} = req.body
-
-    console.log(`Api is hit by ${req.user?.username} and the entity is ${entity}`)
-    
-})
+router.post('/add_task',authMiddleware,addTaskController)
 
 export default router
