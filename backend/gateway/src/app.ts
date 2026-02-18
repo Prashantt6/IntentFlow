@@ -1,11 +1,9 @@
-import dotenv from "dotenv"
-
+import "./config/env"  
 
 import express from 'express'
 import apiRouter from "./routes/router"
-// import authRouter from "./routes/authRoutes"
+import authRouter from "./routes/authRoutes"
 
-dotenv.config()
 
 const app = express()
 
@@ -14,7 +12,7 @@ app.use(express.json());
 const PORT = 8000
 
 app.use('/api',apiRouter)
-// app.use('/',authRouter)
+app.use('/',authRouter)
 app.get("/",(req,res)=>{
     res.send("Server is running")
 })
