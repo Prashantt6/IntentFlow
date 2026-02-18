@@ -1,3 +1,4 @@
+import "./config/env"
 import express from 'express'
 import todo_Router from './routes/todoRoutes'
 const app = express()
