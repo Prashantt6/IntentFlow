@@ -70,8 +70,8 @@ export const loginController = async(req: Request, res: Response) =>{
         .json({
             message:"Login Successful",
             token: jwtToken,
-            email: userExists?.[0]?.email,
-            username: userExists?.[0]?.username
+            email: userExists.email,
+            username: userExists.username
         })
 
     }
