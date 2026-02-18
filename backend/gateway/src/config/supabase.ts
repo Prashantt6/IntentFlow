@@ -10,13 +10,14 @@ export const supabase = createClient(supabaseUrl, supabaseKey)
 
 export const createSupabaseClient = (token:string) =>{
     return createClient(
-        supabaseKey,supabaseUrl,
+        supabaseUrl,supabaseKey,
         {
-            global:{
+            global:token?{
                 headers:{
                     Authorization: `Bearer ${token}`
                 }
             }
+            :{}
         }
     )
 }

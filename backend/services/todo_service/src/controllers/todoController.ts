@@ -11,7 +11,7 @@ export const addTaskController = async(req:Request, res: Response) =>{
         const {entity} = req.body
 
         const task= await addTaskService(supabase,user.id, entity)
-
+        console.log(task)
         return res.status(201).json({
             message: "Task added",
             task
