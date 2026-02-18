@@ -17,6 +17,7 @@ const getIntentController = async (req: Request, res: Response)=>{
     else if(intent === 'upload_photo' || intent ==='delete_photo' ){
         
     }
+    res.json(`API called determining intent: ${intent}`)
 
 }
 export default getIntentController
