@@ -6,7 +6,7 @@ import { createSupabaseClient } from '../config/supabase'
     export const authMiddleware = async (req:Request, res: Response, next: NextFunction)=>{
        const token = req.headers.authorization?.replace("Bearer ", "").trim()
 
-       console.log(token)
+    //    console.log(token)
        if(!token){
         return res.status(401)
             .json({
@@ -16,7 +16,7 @@ import { createSupabaseClient } from '../config/supabase'
        const supabase = createSupabaseClient(token)
 
        const {data, error} = await supabase.auth.getUser()
-       console.log(data.user?.email)
+    //    console.log(data.user?.email)
        if(error || !data.user){
         console.error(error)
             return res.status(401)

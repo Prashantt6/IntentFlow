@@ -10,11 +10,11 @@ export const addTaskController = async(req:Request, res: Response) =>{
         
         const {entity} = req.body
 
-        const task= await addTaskService(supabase,user.id, entity)
-        console.log(task)
+        const tasks= await addTaskService(supabase,user.id, entity)
+        // console.log(tasks)
         return res.status(201).json({
             message: "Task added",
-            task
+            tasks
         })
    }
    catch(error){
@@ -30,7 +30,12 @@ export const listTaskController= async(req: Request, res:Response) =>{
         const supabase = (req as any).supabase
         const user = (req as any).user
         const tasks = await listTaskService(supabase, user.id)
-        console.log(tasks)
+        // console.log(tasks)
+        return res.status(201)
+            .json({
+                message: "Here are all your tasks",
+                tasks
+            })
     }
     catch(error){
         console.error(error)

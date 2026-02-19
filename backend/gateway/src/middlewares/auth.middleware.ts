@@ -3,13 +3,13 @@ import { createSupabaseClient } from "../config/supabase";
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction )=>{
     const authHeader = req.headers.authorization
-    console.log("AuthHeader", authHeader)
+    // console.log("AuthHeader", authHeader)
     if (!authHeader?.startsWith("Bearer ")) {
         return res.status(401).json({ message: "Unauthorized" })
     }
 
     const token = authHeader.split(" ")[1]
-    console.log(token)
+    // console.log(token)
     if(!token){
         return res.status(401) 
             .json({

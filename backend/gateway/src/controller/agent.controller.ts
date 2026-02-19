@@ -6,17 +6,18 @@ import todoService from "../services/todoClient";
 
 export const getIntentController = async (req: Request, res: Response)=>{
     const {input} = req.body
+
     const intent =await getIntent(input)
     const token = req.headers.authorization
-    const supabase = (req as any).supabase
-    const user = (req as any).data
+
+    let serviceResponse = null;
     // console.log(user)
     
 
     // console.log(`This api was hit by ${req.user?.username}`)
     if(intent === 'add_task' || intent==='delete_task' || intent==='list_tasks'){
         // console.log("HI from todoService agent controller")
-        await   todoService(input, intent,token)
+        serviceResponse = await   todoService(input, intent,token)
     }
     else if(intent === 'write_blog' ){
         
@@ -24,7 +25,10 @@ export const getIntentController = async (req: Request, res: Response)=>{
     else if(intent === 'upload_photo' || intent ==='delete_photo' ){
         
     }
-    res.json(`API called determining intent: ${intent}`)
+    res.json({
+        Identity: `API called determining intent: ${intent}`,
+        Response: serviceResponse
+    })
 
 }
 
