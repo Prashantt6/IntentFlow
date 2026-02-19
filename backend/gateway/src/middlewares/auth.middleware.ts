@@ -21,7 +21,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
     const {data, error} = await supabase.auth.getUser()
     
     if(error || !data) {
-        
+        console.error(error)
         return res.status(401)
             .json({
                 message: "Invalid token"

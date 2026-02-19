@@ -15,6 +15,7 @@ export const getIntentController = async (req: Request, res: Response)=>{
 
     // console.log(`This api was hit by ${req.user?.username}`)
     if(intent === 'add_task' || intent==='delete_task' || intent==='list_tasks'){
+        // console.log("HI from todoService agent controller")
         await   todoService(input, intent,token)
     }
     else if(intent === 'write_blog' ){

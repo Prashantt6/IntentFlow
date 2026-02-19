@@ -9,3 +9,9 @@ export const addTaskService = async(supabase: any, userId: string, title: string
 
     return data
 }
+export const listTaskService = async(supabase: any , userId:string)=>{
+    const {data,error} = await supabase.from('task').select().eq('user_id', userId)
+    if(error) throw error
+
+    return data
+}

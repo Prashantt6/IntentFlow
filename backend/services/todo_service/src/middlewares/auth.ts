@@ -6,7 +6,7 @@ import { createSupabaseClient } from '../config/supabase'
     export const authMiddleware = async (req:Request, res: Response, next: NextFunction)=>{
        const token = req.headers.authorization?.replace("Bearer ", "").trim()
 
-    //    console.log(token)
+       console.log(token)
        if(!token){
         return res.status(401)
             .json({
