@@ -9,7 +9,7 @@ const router = Router()
 router.get("/", (req,res)=>{
     res.send("Router working")
 })
-router.get('/intents',authMiddleware, getIntentController)
+router.post('/intents',authMiddleware, getIntentController)
 
 
 export default router
