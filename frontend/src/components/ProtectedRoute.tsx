@@ -13,7 +13,7 @@ export default function ProtectedRoute({children}:any){
         })
     }, []);
 
-    if(loading) return<div>Loading...</div>
+    if(loading) return <div className="loading-screen">Loading…</div>
     if(!session) return <Navigate to="/" />
 
     return children
