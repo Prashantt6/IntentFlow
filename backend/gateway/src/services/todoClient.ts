@@ -11,7 +11,7 @@ const todoService = async(input:string, intent: string, token: string |undefined
     // console.log(entity)
     // console.log(intent)
     try{
-        const res =await axios.post<TodoResponse>(`http://localhost:3001/${intent}`,
+        const res =await axios.post<TodoResponse>(`http://todo:3001/${intent}`,
             { entity},
             {
                 headers:{
