@@ -12,8 +12,7 @@ def get_intent_score(input_emb, intent_emb):
 def analyze_Intent(input: str)-> str:
     # Opening the json file of intents
     try: 
-        base_dir = Path(__file__).resolve().parents[3]
-        intents_path = base_dir/"intents.json"
+        intents_path = Path(__file__).resolve().parents[1] / "intents.json"
         with open(intents_path, 'r') as file:
             intents = json.load(file)
             add_task = intents['add_task']
