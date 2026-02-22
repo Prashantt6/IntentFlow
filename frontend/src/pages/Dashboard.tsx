@@ -4,7 +4,7 @@ import axios from "axios";
 import { supabase } from "../lib/supabase";
 import "../styles/Dashboard.css";
 
-const API_BASE = "http://localhost:8000";
+const API_BASE = "http://localhost:3000";
 
 interface TaskItem {
   id?: string;
