@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  fastapi:
+    build: ./backend/ai_services  
+    ports:
+      - "8000:8000"
+
+  node:
+    build: ./backend/gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - fastapi
+      - todo
+  todo:
+    build: ./backend/services/todo_service
+    ports:
+      - "3001:3001"
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - node
