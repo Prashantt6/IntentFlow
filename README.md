@@ -73,6 +73,16 @@ These are read via `dotenv` in `backend/gateway/src/config/env.ts` and `backend/
 
 ## Install & run
 
+### Create required environment files
+
+### Start all the service with Docker
+``` bash
+docker-compose up --build
+```
+Then visit: `http://localhost:5173`
+
+**Else:**
+
 ### 1. Backend – AI intent service (FastAPI)
 
 From `backend/ai_services/`:
