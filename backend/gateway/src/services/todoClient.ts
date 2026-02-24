@@ -4,6 +4,7 @@ import extract_entity from "./entity_extracter";
 interface TodoResponse {
     message: string,
     task?: any[]
+    title?: string
 }
 
 const todoService = async(input:string, intent: string, token: string |undefined)=>{
@@ -19,15 +20,15 @@ const todoService = async(input:string, intent: string, token: string |undefined
                 }
         })
         
-
+        // console.log(res.data)
         return res.data
     }
     catch(error: any){
         console.error("Todo Service error:", error.respone?.data || error.message)
         
         return{
-            message: error.respone?.data?.message || "Something went wrong",
-            tasks:[]
+            message: error.response?.data?.message || "Something went wrong",
+            task:[]
         }
     }
    

@@ -6,6 +6,7 @@ import "../styles/Dashboard.css";
 
 const API_BASE = "http://localhost:3000";
 
+console.log("NEW DASHBOARD VERSION RUNNING");
 interface TaskItem {
   id?: string;
   title?: string;
@@ -16,14 +17,10 @@ interface TaskItem {
 interface IntentResponse {
   Identity: string;
   Response: {
-    message?: string;
-    tasks?: TaskItem | TaskItem[];
+    message: string;
+    tasks?: TaskItem[];
+    title?: string;
   } | null;
-}
-
-function normalizeTasks(tasks: TaskItem | TaskItem[] | undefined): TaskItem[] {
-  if (!tasks) return [];
-  return Array.isArray(tasks) ? tasks : [tasks];
 }
 
 export default function Dashboard() {
@@ -39,7 +36,10 @@ export default function Dashboard() {
   };
 
   const sendToBackend = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
     if (!session) {
       setError("Please log in again.");
       return;
@@ -55,6 +55,7 @@ export default function Dashboard() {
         { input },
         { headers: { Authorization: `Bearer ${session.access_token}` } }
       );
+      console.log("FULL RESPONSE FROM GATEWAY:", res.data);
       setResponse(res.data);
     } catch (err: unknown) {
       const message = axios.isAxiosError(err)
@@ -66,20 +67,25 @@ export default function Dashboard() {
     }
   };
 
-  const intentLabel = response?.Identity?.replace("API called determining intent: ", "") ?? null;
-  const tasks = response?.Response ? normalizeTasks(response.Response.tasks) : [];
+  const intentLabel =
+    response?.Identity?.replace("API called determining intent: ", "") ?? null;
+
+  const tasks = response?.Response?.tasks ?? [];
   const message = response?.Response?.message ?? null;
+  const deletedTaskTitle = response?.Response?.title ?? null;
 
   return (
     <div className="dashboard">
       <header className="dashboard-header">
         <div className="dashboard-header-row">
           <h1 className="dashboard-title">IntentFlow</h1>
-          <button type="button" className="dashboard-logout" onClick={handleLogout}>
+          <button className="dashboard-logout" onClick={handleLogout}>
             Log out
           </button>
         </div>
-        <p className="dashboard-subtitle">Say what you want to do in plain language.</p>
+        <p className="dashboard-subtitle">
+          Say what you want to do in plain language.
+        </p>
       </header>
 
       <section className="dashboard-input-section">
@@ -94,7 +100,6 @@ export default function Dashboard() {
             disabled={loading}
           />
           <button
-            type="button"
             className="dashboard-send"
             onClick={sendToBackend}
             disabled={loading || !input.trim()}
@@ -114,22 +119,38 @@ export default function Dashboard() {
       {response && (
         <section className="dashboard-response">
           {intentLabel && (
-            <div className="intent-badge" data-intent={intentLabel}>
+            <div className="intent-badge">
               {intentLabel.replace(/_/g, " ")}
             </div>
           )}
-          {message && (
-            <p className="response-message">{message}</p>
+
+          {message && <p className="response-message">{message}</p>}
+
+          {deletedTaskTitle && (
+            <div className="dashboard-panel dashboard-deleted">
+              <span className="panel-label">Deleted</span>
+              <p>
+                Task "<strong>{deletedTaskTitle}</strong>" was deleted.
+              </p>
+            </div>
           )}
+
           {tasks.length > 0 && (
             <div className="tasks-list">
               <h3 className="tasks-title">Tasks</h3>
               <ul className="tasks-ul">
                 {tasks.map((task, i) => (
                   <li key={task.id ?? i} className="task-item">
-                    <span className="task-title">{task.title ?? "Untitled"}</span>
+                    <span className="task-title">
+                      {task.title ?? "Untitled"}
+                    </span>
+
                     {task.isCompleted != null && (
-                      <span className={`task-status ${task.isCompleted ? "done" : "pending"}`}>
+                      <span
+                        className={`task-status ${
+                          task.isCompleted ? "done" : "pending"
+                        }`}
+                      >
                         {task.isCompleted ? "Done" : "Pending"}
                       </span>
                     )}
@@ -138,14 +159,13 @@ export default function Dashboard() {
               </ul>
             </div>
           )}
+
           {response.Response === null && intentLabel && (
-            <p className="response-muted">This intent is not connected to a service yet.</p>
+            <p className="response-muted">
+              This intent is not connected to a service yet.
+            </p>
           )}
         </section>
-      )}
-
-      {!response && !error && !loading && (
-        <p className="dashboard-hint">Type a command above and press Send to see the result here.</p>
       )}
     </div>
   );

@@ -215,3 +215,10 @@
   margin: 0;
   font-size: 0.9rem;
 }
+.dashboard-deleted {
+  border-left: 4px solid #e74c3c;
+  background: rgba(231, 76, 60, 0.08);
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 6px;
+}
